@@ -3,6 +3,7 @@ from IPython.display import display
 importlib.reload(progress)
 importlib.reload(postprocessor)
 
+ESRGAN_install()
 
 def process(ShouldSave, ShouldPreview = True):
     colab.prepare("text2img")
@@ -40,9 +41,9 @@ def ESRGAN_install():
   if not os.path.exists('/content/Real-ESRGAN'):
     !git clone https://github.com/sberbank-ai/Real-ESRGAN
     !pip install -r Real-ESRGAN/requirements.txt
-    !wget https://huggingface.co/datasets/db88/Enhanced_ESRGAN/resolve/main/RealESRGAN_x2.pth -O /content/Real-ESRGAN/weights/RealESRGAN_x2.pth
+#     !wget https://huggingface.co/datasets/db88/Enhanced_ESRGAN/resolve/main/RealESRGAN_x2.pth -O /content/Real-ESRGAN/weights/RealESRGAN_x2.pth
     !wget https://huggingface.co/datasets/db88/Enhanced_ESRGAN/resolve/main/RealESRGAN_x4.pth -O /content/Real-ESRGAN/weights/RealESRGAN_x4.pth
-    !wget https://huggingface.co/datasets/db88/Enhanced_ESRGAN/resolve/main/RealESRGAN_x8.pth -O /content/Real-ESRGAN/weights/RealESRGAN_x8.pth
+#     !wget https://huggingface.co/datasets/db88/Enhanced_ESRGAN/resolve/main/RealESRGAN_x8.pth -O /content/Real-ESRGAN/weights/RealESRGAN_x8.pth
   %cd Real-ESRGAN
   from realesrgan import RealESRGAN
   clear_output()
