@@ -14,8 +14,11 @@ def process(ShouldSave, ShouldPreview = True):
     num_iterations = colab.settings['Iterations']
     display("Iterations: 0/%d" % num_iterations, display_id="iterations")
     # Load image
-    response = requests.get(colab.settings['InitialImageURL'])
-    init_image = Image.open(BytesIO(response.content)).convert('RGB')
+    if colab.settings['Local']:
+        init_image = Image.open(colab.settings['InitialImageURL'])
+    else: 
+        response = requests.get(colab.settings['InitialImageURL'])
+        init_image = Image.open(BytesIO(response.content)).convert('RGB')
     init_image.thumbnail((colab.settings['Width'], colab.settings['Height']))
     display(init_image)
     # Process image
