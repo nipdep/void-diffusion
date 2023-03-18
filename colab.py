@@ -31,7 +31,19 @@ def init(ModelName):
         try:
             from diffusers import StableDiffusionPipeline, StableDiffusionImg2ImgPipeline, StableDiffusionInpaintPipeline
             from transformers import AutoTokenizer
-            rev = "main" # "diffusers-115k" if model_name == "naclbit/trinart_stable_diffusion_v2" else "fp16"
+            rev_dict = {
+                'fp16' : ["runwayml/stable-diffusion-v1-5", "stabilityai/stable-diffusion-2-1", "CompVis/stable-diffusion-v1-4"],
+                'diffusers-115k' : ["naclbit/trinart_stable_diffusion_v2",],
+                'main' : ["hakurei/waifu-diffusion", "nitrosocke/Arcane-Diffusion", "nitrosocke/archer-diffusion", "nitrosocke/elden-ring-diffusion", "nitrosocke/spider-verse-diffusion", "nitrosocke/modern-disney-diffusion", "hakurei/waifu-diffusion", "lambdalabs/sd-pokemon-diffusers", "yuk/fuyuko-waifu-diffusion", "AstraliteHeart/pony-diffusion", "nousr/robo-diffusion", "DGSpitzer/Cyberpunk-Anime-Diffusion", "sd-dreambooth-library/herge-style"]
+            }
+            
+            for r, ml in rev_dict.items():
+                if model_name in ml:
+                    rev = r
+                    break
+            else:
+                rev = "main"
+#             rev = "main" # "diffusers-115k" if model_name == "naclbit/trinart_stable_diffusion_v2" else "fp16"
             text2img = StableDiffusionPipeline.from_pretrained(model_name, revision=rev, torch_dtype=torch.float16).to("cuda:0")
             img2img = StableDiffusionImg2ImgPipeline(**text2img.components)
             inpaint = StableDiffusionInpaintPipeline(**text2img.components)
