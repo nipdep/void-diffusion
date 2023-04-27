@@ -44,3 +44,4 @@ def process(ShouldSave, ShouldPreview = True):
             print("Saved to " + path)
             postprocessor.post_process(image, imageName)
         display("Iterations: %d/%d" % (i + 1,  num_iterations), display_id="iterations")
+        return image
